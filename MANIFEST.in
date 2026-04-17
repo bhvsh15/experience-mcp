@@ -1,0 +1,2 @@
+# Ship the bundled skill-creator (lives inside the installed package)
+recursive-include src/experience_mcp/skill-creator *.md *.json *.txt

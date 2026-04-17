@@ -1,0 +1,47 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "experience-mcp"
+version = "0.1.0"
+description = "Give your coding agent a long-term memory via MCP skills"
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.11"
+authors = [
+    { name = "Bhavesh Mandwani", email = "bhavesh.mandwani@accionlabs.com" },
+]
+maintainers = [
+    { name = "Bhavesh Mandwani", email = "bhavesh.mandwani@accionlabs.com" },
+]
+keywords = ["mcp", "llm", "agent", "claude", "cursor", "skills", "memory"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+dependencies = [
+    "mcp[cli]>=1.0.0",
+]
+
+[project.scripts]
+# The CLI command:  experience-mcp init claude --local
+experience-mcp = "experience_mcp.server:cli"
+
+[project.urls]
+Homepage = "https://github.com/bhvsh15/experience-mcp"
+Issues   = "https://github.com/bhvsh15/experience-mcp/issues"
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+# Ship the bundled skill-creator folder inside the wheel.
+"experience_mcp" = ["skill-creator/**/*"]
