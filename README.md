@@ -74,13 +74,21 @@ Here's a real workflow. The agent writes a FastAPI query the wrong way. You corr
 
 The agent adds the parameter but filters rows in Python after fetching everything from the database.
 
+![Agent adds the filter incorrectly](assets/1-agent-adds-filter.png)
+
 **2. You correct it:**
 > *"don't fetch everything and filter in Python — always push filters to the database using `.where()`. That's the rule for all queries in this project."*
 
 The agent fixes the code, then offers:
 > *"💾 Should I save this as a skill?"*
 
-**3. You say yes.** The agent calls `create_skill` and saves:
+![User correction and agent response](assets/2-user-correction.png)
+
+**3. You say yes.** The agent calls `list_skills` then `create_skill`:
+
+![Agent calling create_skill via experience-mcp](assets/3-create-skill-call.png)
+
+The skill is saved:
 
 ```
 .cursor/skills/
@@ -113,6 +121,8 @@ to the database using .where(). That's the rule for all queries in this project.
 ## Scope
 local
 ```
+
+![Saved SKILL.md with proper frontmatter](assets/4-saved-skill.png)
 
 **4. Next session** — the agent reads the skill automatically and applies the rule before you say anything.
 
