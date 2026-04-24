@@ -39,10 +39,33 @@ def make_tools(skills_dir: Path, agent: str, scope: str = "local"):
         saved, call `update_skill` instead to avoid duplicates — check with
         `list_skills` if unsure.
 
+        The `content` MUST start with YAML frontmatter:
+
+            ---
+            name: "kebab-case-skill-name"
+            description: "Use this skill whenever [triggers]. [What it enforces]."
+            ---
+
+            ## Rule
+            [Core rule in 1-2 sentences]
+
+            ## Detail
+            - [Specific guideline]
+
+            ## Origin
+            [How the rule was learned]
+
+            ## Scope
+            [local or global]
+
+        Frontmatter rules:
+          - name: kebab-case, max 64 chars, lowercase/digits/hyphens only
+          - description: assertive trigger language, max 1024 chars, no angle brackets
+          - Without frontmatter the skill won't be auto-loaded by the agent
+
         Args:
             name:             Short kebab-case folder name, e.g. "validate-user-input"
-            content:          Full markdown content for SKILL.md — dense and
-                              actionable, with a clear Rule / Detail / Origin.
+            content:          Full SKILL.md content including frontmatter (see above)
             supporting_files: Optional {filename: content} for extra .md files,
                               e.g. {"examples.md": "# Examples\\n..."}
         """

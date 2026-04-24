@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "experience-mcp"
-version = "0.1.0"
+version = "0.1.1"
 description = "Give your coding agent a long-term memory via MCP skills"
 readme = "README.md"
 license = { text = "MIT" }

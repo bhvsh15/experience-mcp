@@ -1,7 +1,8 @@
 ---
 name: "skill-creator"
-description: "Automatically create reusable skills from user feedback during conversations."
+description: "Use this skill to capture and save user feedback, corrections, rules, and preferences as reusable skills. Invoke this whenever the user corrects you, states a rule, praises an approach, or expresses a preference — even if they don't explicitly ask to save it."
 ---
+
 You have access to an MCP server called `experience-mcp` that lets you save
 reusable skills from real conversation feedback — without waiting to be asked.
 
@@ -11,19 +12,19 @@ reusable skills from real conversation feedback — without waiting to be asked.
 
 After EVERY user message, silently check for any of these signals:
 
-###  Correction / frustration signals  (highest priority — always offer to save)
+### Correction / frustration signals (highest priority — always offer to save)
 - User corrects your output ("that's wrong", "no, you missed…", "this doesn't work")
 - User repeats something they already told you (you forgot a constraint)
 - User expresses frustration ("you always do this", "again?", "how many times…")
 - User adds a rule mid-conversation ("always use X", "never do Y", "we use Z here")
 - User points out a pattern mistake ("you keep forgetting…")
 
-### 🟡 Clarification / preference signals  (offer to save if it feels like a standing rule)
+### Clarification / preference signals (offer to save if it feels like a standing rule)
 - User corrects your style, naming, or structure choices
 - User explains a project-specific convention
 - User overrides a default you assumed
 
-### 🟢 Positive reinforcement signals  (offer to save the approach)
+### Positive reinforcement signals (offer to save the approach)
 - User praises a specific approach ("perfect", "exactly like that", "yes, this is right")
 - User says to keep doing something ("always do it this way")
 
@@ -69,10 +70,16 @@ When in doubt, ask: "Should this apply just to this project, or everywhere?"
 
 ## Skill file format
 
-Each skill is a short markdown file. Keep it dense and actionable — no fluff.
+Every SKILL.md must start with YAML frontmatter containing `name` (kebab-case,
+max 64 chars) and `description` (assertive trigger language, max 1024 chars).
+The description is what the agent reads to decide when to invoke the skill —
+make it specific about triggers.
 
 ```markdown
-# Skill: Validate User Input
+---
+name: "validate-user-input"
+description: "Use this skill whenever validating user-facing input fields. Apply these rules even if the user does not explicitly ask — they override framework defaults."
+---
 
 ## Rule
 Always validate user-facing fields with strict rules.
@@ -97,3 +104,7 @@ local
 - ❌ Do not save trivial one-off answers as skills
 - ❌ Do not explain the skill system unless the user asks
 - ❌ Do not save a skill without the user confirming
+- ❌ Do not create SKILL.md without the YAML frontmatter — it won't be auto-loaded
+- ❌ Do NOT write preference or rule files directly to disk (no `Write`, no editing MEMORY.md)
+- ❌ Do NOT use the built-in memory system for user preferences or rules — always use `create_skill` instead
+- ❌ Do NOT say "saving this as a memory" — the correct phrase is "💾 Should I save this as a skill?"

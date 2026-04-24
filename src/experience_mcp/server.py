@@ -58,6 +58,39 @@ Flow on a detected signal:
 Call `list_skills` at the start of a session, or whenever you are unsure
 whether the user has a standing rule about the current task. Treat listed
 skills as authoritative memory, not optional suggestions.
+
+IMPORTANT — do NOT use the built-in memory/file system for user preferences
+or rules. Do not write markdown files directly, do not update MEMORY.md.
+For anything the user teaches you (preferences, rules, corrections), the ONLY
+correct mechanism is `create_skill`. The built-in memory system is for
+session context only — skills are for durable, reusable knowledge.
+
+SKILL.md FORMAT — every file you create must follow this exactly:
+
+---
+name: "kebab-case-skill-name"
+description: "Use this skill whenever [specific triggers]. [What it enforces]."
+---
+
+## Rule
+[Core rule in 1-2 sentences]
+
+## Detail
+- [Specific guideline]
+- [Specific guideline]
+
+## Origin
+[How the rule was learned — e.g. "User correction: 'you always forget X'"]
+
+## Scope
+[local or global]
+
+Rules for the frontmatter:
+  • name: kebab-case, lowercase letters/digits/hyphens only, max 64 chars
+  • description: assertive trigger language ("Use this skill whenever…"),
+    max 1024 chars, no angle brackets — this is what the agent reads to
+    decide when to auto-invoke the skill, so be specific about triggers
+  • The frontmatter is required — without it the skill won't be auto-loaded
 """
 
 
